@@ -1,0 +1,36 @@
+name: 'Check package version'
+
+on:
+    pull_request:
+        branches:
+            - main
+            - master
+
+jobs:
+    check-package-version:
+        name: Check if package.json version was bumped
+        runs-on: ubuntu-latest
+        steps:
+            - name: Check out repository
+              uses: actions/checkout@v2
+
+            - name: Check package version
+              id: cpv
+              uses: PostHog/check-package-version@v2
+
+            - name: Echo versions
+              run: |
+                  echo "Committed version: ${{ steps.cpv.outputs.committed-version }}"
+                  echo "Is new version: ${{ steps.cpv.outputs.is-new-version }}"
+
+            - name: Handle new version
+              if: steps.cpv.outputs.is-new-version == 'true'
+              run: |
+                  echo "Is new version: ${{ steps.cpv.outputs.is-new-version }}"
+                  echo "Check complete"
+
+            - name: Handle not new version
+              if: steps.cpv.outputs.is-new-version == 'false'
+              run: |
+                  echo "Is new version: ${{ steps.cpv.outputs.is-new-version }}"
+                  echo: "Please run `yarn version --<major|minor|patch>` to bump the version in package.json and push the change"
