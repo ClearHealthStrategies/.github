@@ -9,6 +9,8 @@ on:
 jobs:
     check-package-version:
         name: Check if package.json version was bumped
+        # Only run against the API and ClearHealthCloud repositories
+        if: github.repository == 'ClearHealthStrategies/API' || github.repository == 'ClearHealthStrategies/ClearHealthCloud'
         runs-on: ubuntu-latest
         steps:
             - name: Check out repository
