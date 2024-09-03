@@ -30,4 +30,4 @@ Fixes # (issue)
 - [ ] My changes generate no new warnings
 - [ ] Any dependent changes have been merged and published in downstream modules
 - [ ] No new ESLint errors were introduced
-- [ ] I have run `yarn version --new-version <major|minor|patch>` to update the package version
+- [ ] I have run `npm version <major|minor|patch>` to update the package version
